@@ -4,6 +4,7 @@ pageSections = ['overview',
              'yeartoyear',
              'flow',
              'table',
+             'bookmark',
              'recentchanges'];
 
 sectionDefault = pageSections[0];
