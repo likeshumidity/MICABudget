@@ -1,7 +1,6 @@
 // alert(location.hash);
 
 pageSections = ['overview',
-             'goals',
              'yeartoyear',
              'flow',
              'table',
