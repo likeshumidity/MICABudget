@@ -2464,10 +2464,6 @@ $(document).ready( function() {
           autocompletes[i][2])
       );
 
-      $('#filter-' + autocompletes[i][0]).easySelect({
-        removeIcon: '<i class="glyphicon glyphicon-remove" aria-hidden="true"></i>',
-        onKeyup: null // Replace with function to review selection and update d3.
-      });
     } else if (autocompletes[i][1] == 2) {
       $('#choose-' + autocompletes[i]).append(
         inputSelectFromList(eval(autocompletes[i][0]),

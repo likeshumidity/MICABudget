@@ -21,10 +21,11 @@ button.navbar-toggle .icon-bar {
 
 #nav-bookmark {
   margin-top: 5px;
+  border: none;
 }
 
 #nav-bookmark i {
-  font-size: 14pt;
+  font-size: 16pt;
 }
 
 form.filter-form h2 {
@@ -38,19 +39,10 @@ ul {
   padding: 0px 0px 0px 0px;
 }
 
-.ui-autocomplete li, 
-form.filter-form .form-group li {
-  list-style-type: none;
-}
-
 form.filter-form .form-group li,
 form.filter-form .form-group input,
-.ui-autocomplete li {
+form.filter-form .form-group a {
   font-size: 7pt;
-}
-
-ul.ui-autocomplete {
-  background-color: #fff;
-  max-width: 150px;
+  z-index: 3;
 }
 
