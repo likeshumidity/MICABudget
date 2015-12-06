@@ -2434,6 +2434,8 @@ var availableYears = [
 ];
 
 var bookmarks = [
+  'All',
+  'None',
   'Expense - Capital',
   'Expense - Comp',
   'Expense - NonComp',

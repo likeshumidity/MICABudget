@@ -1,34 +1,42 @@
-           <section class="bookmark-edit">
-             <h2>Edit Bookmark</h2>
-             <form role="form">
-               <div class="form-group">
-                 <label for="bookmark-title">Title</label>
-                 <input type="text" id="bookmark-title">
-               </div>
-               <div class="form-group">
-                 <label for="bookmark-description">Description</label>
-                 <input type="text" id="bookmark-description">
-               </div>
-               <div class="form-group">
-                 <input type="checkbox" id="bookmark-public">
-                 <label for="bookmark-public">Public</label>
-                 <p>Public bookmarks can be seen by anyone who has access to
-                 the same accounts, funds, departments, and programs.</p>
-               </div>
-               <div class="form-group">
-                 <button class="btn" id="bookmark-save">
-                   Save
-                   <i class="glyphicon glyphicon-save" aria-hidden="true"></i>
-                 </button>
-                 <button class="btn" id="bookmark-new">
-                   New 
-                   <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
-                 </button>
-                 <button class="btn" id="bookmark-delete">
-                   Delete
-                   <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
-                 </button>
-               </div>
-             </form>
-           </section>
+          <section class="bookmark-edit">
+            <h2>Edit Bookmark</h2>
+            <form role="form">
+              <div class="form-group">
+                <label for="bookmark-title">Title</label>
+                <input type="text" id="bookmark-title">
+              </div>
+              <div class="form-group">
+                <label for="bookmark-description">Description</label>
+                <input type="text" id="bookmark-description">
+              </div>
+              <div class="form-group">
+                <input type="checkbox" id="bookmark-default">
+                <label for="bookmark-default">Set as default</label>
+                <span class="help-block">Currently
+                  <span id="bookmark-current-default-title">xxxxxx</span>
+                  is set as the default.
+                </span>
+              </div>
+              <div class="form-group">
+                <input type="checkbox" id="bookmark-public">
+                <label for="bookmark-public">Public</label>
+                <span class="help-block">Public bookmarks can be seen by anyone who has access to
+                the same accounts, funds, departments, and programs.</span>
+              </div>
+              <div class="form-group">
+                <button class="btn" id="bookmark-save">
+                  Save
+                  <i class="glyphicon glyphicon-save" aria-hidden="true"></i>
+                </button>
+                <button class="btn" id="bookmark-new">
+                  New 
+                  <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
+                </button>
+                <button class="btn" id="bookmark-delete">
+                  Delete
+                  <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
+                </button>
+              </div>
+            </form>
+          </section>
 

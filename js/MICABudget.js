@@ -7,11 +7,12 @@ pageSections = ['overview',
 
 sectionDefault = pageSections[0];
 
-$("#mainContent").load("sections/" + sectionDefault + ".html");
-$.getScript("js/" + sectionDefault + ".js");
+$(document).ready(loadSectionFromHash);
+$(window).on('hashchange', loadSectionFromHash);
 
-$(window).on('hashchange', function() {
+function loadSectionFromHash() {
   sectionRequested = location.hash.slice(1);
+
 
   sectionToLoad = sectionDefault;
   for (i = 0; i < pageSections.length; i++) {
@@ -24,5 +25,5 @@ $(window).on('hashchange', function() {
   $.getScript("js/" + sectionToLoad + ".js");
   $("li.active,button.active").toggleClass('active');
   $("#nav-" + sectionToLoad).toggleClass('active');
-});
+}
 
