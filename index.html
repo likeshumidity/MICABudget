@@ -37,7 +37,7 @@
   <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
       <div class="navbar-header">
-        <h1><a class="navbar-brand" href="#">MICA Budget Viewer</a></h1>
+        <h1><a class="navbar-brand" href="">MICA Budget Viewer</a></h1>
         <button type="button"
           class="navbar-toggle collapsed"
           data-toggle="collapse"
@@ -72,38 +72,50 @@
           <h2>Filters</h2>
           <div class="form-group">
             <label for="filter-accounts">Accounts</label>
+            <a id="accounts-select-all">Select All</a> |
+            <a id="accounts-clear-all">Clear All</a>
             <select id="filter-accounts" multiple>
             </select>
           </div>
           <div class="form-group">
             <label for="filter-funds">Funds</label>
+            <a id="funds-select-all">Select All</a> |
+            <a id="funds-clear-all">Clear All</a>
             <select id="filter-funds" multiple>
             </select>
           </div>
           <div class="form-group">
             <label for="filter-departments">Departments</label>
+            <a id="departments-select-all">Select All</a> |
+            <a id="departments-clear-all">Clear All</a>
             <select id="filter-departments" multiple>
             </select>
           </div>
           <div class="form-group">
             <label for="filter-programs">Programs</label>
+            <a id="programs-select-all">Select All</a> |
+            <a id="programs-clear-all">Clear All</a>
             <select id="filter-programs" multiple>
             </select>
           </div>
           <div class="form-group">
             <label for="filter-years">Years</label>
+            <a id="years-select-all">Select All</a> |
+            <a id="years-clear-all">Clear All</a>
             <select id="filter-years" multiple>
             </select>
           </div>
           <hr>
           <div class="form-group">
             <label for="choose-bookmarks">Bookmarked Filters</label>
-            <button type="button" id="nav-bookmark"
-                                  class="btn btn-default btn-sm pull-right"
-                                  aria-label="Edit Bookmark">
-              <a href="#bookmark"><i class="glyphicon glyphicon-bookmark"
-                                     aria-hidden="true"></i></a>
-            </button>
+            <a href="#bookmark">
+              <button type="button" id="nav-bookmark"
+                      class="btn btn-default btn-sm pull-right"
+                      aria-label="Edit Bookmark">
+                <i class="glyphicon glyphicon-bookmark"
+                   aria-hidden="true"></i>
+              </button>
+            </a>
             <select id="choose-bookmarks">
             </select>
             <p class="clearfix notice-unsaved">unsaved changes</p>
