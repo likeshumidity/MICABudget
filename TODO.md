@@ -17,8 +17,7 @@
 * bullet - mouseover
 * year to year - mouseover
 * account categories - rev, exp, etc.
-* filter accts/depts/etc by privileges
-* sample users at bottom as footer
+* filter accts/depts/etc by privileges as set by clicking links in footer
 
 ## required - appearance:
 * update styles to match MICA
