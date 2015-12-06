@@ -480,7 +480,7 @@ var autocompletes = [
   ['departments', 3, 5],
   ['programs', 3, 4],
   ['years', 3, 4],
-  ['bookmarksPublic', 4, 0]
+  ['bookmarksPublic', 4, 0],
   ['bookmarksPrivate', 5, 0]
 ];
 
@@ -529,10 +529,10 @@ function loadAutocompletes() {
       $('#filter-' + autocompletes[i][0]).select2();
     } else if (autocompletes[i][1] == 4) {
       $('#choose-bookmarks')
-        .append('<optgroup label="Public"></optgroup>')
+        .append('<optgroup label="Public" id="choose-bookmarks-public"></optgroup>');
+      $('#choose-bookmarks-public')
         .append(inputSelectFromList(eval(autocompletes[i][0]), 100));
-
-      $('#choose-' + autocompletes[i]).select2();
+      $('#choose-bookmarks' + autocompletes[i]).select2();
     }
   }
 }
@@ -564,4 +564,24 @@ function populateChartfieldLists(username) {
   availableYears = eval('accessPrivileges.' + username + '.years');
 }
 
+$('#choose-bookmarks').change(function() {
+  // does this change trigger filter attributes change data refresh?
+  console.log('refresh filters from bookmark');
+});
+
+$('.filter-attributes').change(function() {
+  console.log('refresh data from updated filter list and mark as unsaved');
+});
+
+$('.select-all').click(function() {
+  console.log('select all from '
+              + $(this).context.id.substr(0,$(this).context.id.length - 11)
+              + ' and refresh data');
+});
+
+$('.clear-all').click(function() {
+  console.log('clear all from '
+              + $(this).context.id.substr(0,$(this).context.id.length - 10)
+              + ' and refresh data');
+});
 

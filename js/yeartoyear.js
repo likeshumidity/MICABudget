@@ -1,6 +1,7 @@
+function drawLineChart() {
 var margin = {top: 20, right: 80, bottom: 30, left: 50},
-  width = 960 - margin.left - margin.right,
-  height = 500 - margin.top - margin.bottom;
+  width = $('#mainContent').width() - margin.left - margin.right,
+  height = 550 - margin.top - margin.bottom;
 
 var parseDate = d3.time.format("%Y%m%d").parse;
 
@@ -87,5 +88,15 @@ d3.tsv("data/lines.tsv", function(error, data) {
     .attr("x", 3)
     .attr("dy", ".35em")
     .text(function(d) { return d.name; });
+});
+}
+
+$(document).ready(function () {
+  drawLineChart();
+});
+
+$(window).resize(function() {
+  $('.linechart-yeartoyear').html('');
+  drawLineChart();
 });
 

@@ -1,8 +1,12 @@
+// Set global variables
 var units = "Widgets";
+var width = 0;
+var height = 0;
 
-var margin = {top: 10, right: 10, bottom: 10, left: 10},
-    width = 700 - margin.left - margin.right,
-    height = 300 - margin.top - margin.bottom;
+function drawSankey() {
+  margin = {top: 10, right: 10, bottom: 10, left: 10},
+  width = $('#mainContent').width() - margin.left - margin.right,
+  height = $('body').height() - margin.top - margin.bottom;
 
 var formatNumber = d3.format(",.0f"),    // zero decimal places
     format = function(d) { return formatNumber(d) + " " + units; },
@@ -24,6 +28,7 @@ var sankey = d3.sankey()
 
 var path = sankey.link();
 
+// change to d3.data(jsonvariable, function...
 // load the data (using the timelyportfolio csv method)
 d3.csv("data/sankey.csv", function(error, data) {
 
@@ -122,3 +127,12 @@ d3.csv("data/sankey.csv", function(error, data) {
     link.attr("d", path);
   }
 });
+}
+
+drawSankey();
+
+$(window).resize(function() {
+  $('.sankey-flow').html('');
+  drawSankey();
+});
+
