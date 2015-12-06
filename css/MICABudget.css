@@ -86,3 +86,13 @@ form.filter-form .form-group a {
   cursor: pointer;
 }
 
+.footer a {
+  color: #aaa;
+}
+
+.footer .selected-user {
+  font-weight: bold;
+  color: #aae;
+}
+
+

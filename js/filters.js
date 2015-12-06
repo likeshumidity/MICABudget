@@ -491,6 +491,9 @@ $('.userchange').click( function() {
     .substr(11);
 
   loadAutocompletes();
+
+  $('.selected-user').toggleClass('selected-user');
+  $(this).addClass('selected-user');
 });
 
 $(document).ready(loadAutocompletes);
@@ -518,7 +521,7 @@ function loadAutocompletes() {
     } else if (autocompletes[i][1] == 3) {
       populateChartfieldLists(thisUser);
 
-      $('#filter-' + autocompletes[i][0]).append(
+      $('#filter-' + autocompletes[i][0]).html('').append(
         inputSelectFromList(eval('available' + toCapitalized(autocompletes[i][0])),
           autocompletes[i][2])
       );
