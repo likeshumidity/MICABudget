@@ -1,7 +1,7 @@
 # MICABudget TODO
 
 ## required - functionality:
-* download sapmle data (actuals and budget) adjusting to anonymize
+* download sample data (actuals and budget) adjusting to anonymize
 * map flow to data
 * map bullet to data
 * map line chart to data
