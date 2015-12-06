@@ -17,6 +17,8 @@
 * bullet - mouseover
 * year to year - mouseover
 * account categories - rev, exp, etc.
+* clear all filters when changing users
+* select all/clear all functions
 
 ## required - appearance:
 * update styles to match MICA
