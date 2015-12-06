@@ -24,6 +24,8 @@ $(window).on('hashchange', function() {
 
   $("#mainContent").load("sections/" + sectionToLoad + ".html");
   $.getScript("js/" + sectionToLoad + ".js");
+  $("li.active").toggleClass('active');
+  $("#nav-" + sectionToLoad).toggleClass('active');
 });
 
 

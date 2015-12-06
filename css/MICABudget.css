@@ -19,8 +19,38 @@ button.navbar-toggle .icon-bar {
   background-color: #37b;
 }
 
-.recent-changes textarea {
-  resize: none;
-  height: 400px;
-  width: 100%;
+#nav-bookmark {
+  margin-top: 5px;
 }
+
+#nav-bookmark i {
+  font-size: 14pt;
+}
+
+form.filter-form h2 {
+  font-size: 12pt;
+  margin: 2px 2px 2px 0px;
+  font-weight: bold;
+}
+
+ul {
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+}
+
+.ui-autocomplete li, 
+form.filter-form .form-group li {
+  list-style-type: none;
+}
+
+form.filter-form .form-group li,
+form.filter-form .form-group input,
+.ui-autocomplete li {
+  font-size: 7pt;
+}
+
+ul.ui-autocomplete {
+  background-color: #fff;
+  max-width: 150px;
+}
+

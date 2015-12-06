@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>MICA Budget</title>
+  <title>MICA Budget Viewer</title>
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
     integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ=="
@@ -32,7 +32,7 @@
   <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
       <div class="navbar-header">
-        <h1><a class="navbar-brand" href="#">MICA Budget</a></h1>
+        <h1><a class="navbar-brand" href="#">MICA Budget Viewer</a></h1>
         <button type="button"
           class="navbar-toggle collapsed"
           data-toggle="collapse"
@@ -51,11 +51,11 @@
         aria-expanded="false"
         style="height: 1px;">
         <ul class="nav navbar-nav navbar-right">
-          <li class="active"><a href="#overview">Overview</a></li>
-          <li><a href="#yeartoyear">Year to Year</a></li>
-          <li><a href="#flow">Flow</a></li>
-          <li><a href="#table">Table</a></li>
-          <li><a href="#recentchanges">Recent Changes</a></li>
+          <li id="nav-overview" class="active"><a href="#overview">Overview</a></li>
+          <li id="nav-yeartoyear"><a href="#yeartoyear">Year to Year</a></li>
+          <li id="nav-flow"><a href="#flow">Flow</a></li>
+          <li id="nav-table"><a href="#table">Table</a></li>
+          <li id="nav-recentchanges"><a href="#recentchanges">Recent Changes</a></li>
         </ul>
       </div>
     </div>
@@ -64,39 +64,65 @@
   <div class="container-fluid clearfix">
     <div class="row">
       <div class="col-sm-2 sidebar">
-        <form role="form">
+        <form role="form" class="filter-form">
+          <h2>Filters</h2>
           <div class="form-group">
-              <label for="bookmark-list">Filters</label>
-              <div class="pull-right"><a href="#bookmark"><span class="glyphicon glyphicon-bookmark"
-                                                   aria-hidden="true"></span></a></div>
-              <select class="form-control input-sm" id="bookmark-list">
-              </select>
+            <input type="text" id="filter-accounts" placeholder="Accounts" />
+            <ul>
+              <li>492883 - Training/Travel and Lodging</li>
+              <li>492883 - Training/Travel and Lodging</li>
+              <li>492883 - Training/Travel and Lodging</li>
+              <li>492883 - Training/Travel and Lodging</li>
+            </ul>
+          </div>
+          <div class="form-group">
+            <input type="text" id="filter-funds" placeholder="Funds" />
+            <ul>
+              <li>492 - Training/Travel and Lodging</li>
+              <li>492 - Training/Travel and Lodging</li>
+              <li>492 - Training/Travel and Lodging</li>
+              <li>492 - Training/Travel and Lodging</li>
+            </ul>
+          </div>
+          <div class="form-group">
+            <input type="text" id="filter-departments" placeholder="Departments" />
+            <ul>
+              <li>49288 - Training/Travel and Lodging</li>
+              <li>49288 - Training/Travel and Lodging</li>
+              <li>49288 - Training/Travel and Lodging</li>
+              <li>49288 - Training/Travel and Lodging</li>
+            </ul>
+          </div>
+          <div class="form-group">
+            <input type="text" id="filter-programs" placeholder="Programs" />
+            <ul>
+              <li>4928 - Training/Travel and Lodging</li>
+              <li>4928 - Training/Travel and Lodging</li>
+              <li>4928 - Training/Travel and Lodging</li>
+              <li>4928 - Training/Travel and Lodging</li>
+            </ul>
+          </div>
+          <div class="form-group">
+            <input type="text" id="filter-years" placeholder="Years" />
+            <ul>
+              <li>2016</li>
+              <li>2015</li>
+              <li>2014</li>
+              <li>2013</li>
+              <li>2012</li>
+            </ul>
           </div>
           <hr>
           <div class="form-group">
-            <label for="filter-accounts">Accounts</label>
-            <select class="form-control input-sm" id="filter-accounts">
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="filter-funds">Funds</label>
-            <select class="form-control input-sm" id="filter-funds">
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="filter-departments">Departments</label>
-            <select class="form-control input-sm" id="filter-departments">
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="filter-programs">Programs</label>
-            <select class="form-control input-sm" id="filter-programs">
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="filter-years">Years</label>
-            <select class="form-control input-sm" id="filter-years">
-            </select>
+              <label for="bookmark-list">Bookmarked Filters</label>
+              <select class="form-control input-sm" id="bookmark-list">
+              </select>
+              <button type="button" id="nav-bookmark"
+                                    class="btn btn-default btn-sm pull-right"
+                                    aria-label="Edit Bookmark">
+                <a href="#bookmark"><i class="glyphicon glyphicon-bookmark"
+                                       aria-hidden="true"></i></a>
+              </button>
           </div>
         </form>
       </div>
@@ -107,14 +133,18 @@
     </div>
   </div>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script
+    src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"
     integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ=="
     crossorigin="anonymous"></script>
   <script src="https://d3js.org/d3.v3.min.js"></script>
 
-  <script src="js/MICABudget.js"></script>
   <script src="js/sankey.js"></script>
+
+  <script src="js/filters.js"></script>
+  <script src="js/MICABudget.js"></script>
 
 </body>
 
