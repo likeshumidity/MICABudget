@@ -1,3 +1,77 @@
            <section class="table-data">
+             <form role="form">
+               <div class="form-group">
+                 <button class="btn btn-export pull-right" id="table-save">
+                   <i class="glyphicon glyphicon-save" aria-hidden="true"></i>
+                 </button>
+               </div>
+               <div class="form-group">
+                 <span class="radio-list-title">Level:</span>
+                 <label for="level-department" class="radio-inline">
+                   <input type="radio" name="choose-level" id="level-department"
+                                       value="department" checked>Department
+                 </label>
+                 <label for="level-account" class="radio-inline">
+                   <input type="radio" name="choose-level" id="level-account"
+                                       value="account">Account
+                 </label>
+                 <label for="level-journalline" class="radio-inline">
+                   <input type="radio" name="choose-level" id="level-journalline"
+                                       value="journalline">Journal Line
+                 </label>
+                 <label for="level-detail" class="radio-inline">
+                   <input type="radio" name="choose-level" id="level-detail"
+                                       value="detail">Detail
+                 </label>
+               </div>
+             </form>
+             <div class="table-responsive">
+               <table class="table table-hover table-condensed">
+                 <tr>
+                   <th>Fiscal Year</th>
+                   <th>Fund</th>
+                   <th>Department</th>
+                   <th>Account Category</th>
+                   <th>Original Budget $</th>
+                   <th>Year End Projection $</th>
+                   <th>Actuals $</th>
+                   <th>Exp: Funds Available / (Deficit) $</th>
+                   <th>Rev: Deficit / (Surplus) $</th>
+                 </tr>
+                 <tr>
+                   <td>2016</td>
+                   <td>110 - Unrestricted</td>
+                   <td>62020 - Finance Office</td>
+                   <td>Non-Compensation Expenses</td>
+                   <td>50,000.00</td>
+                   <td>52,000.00</td>
+                   <td>22,000.00</td>
+                   <td>30,000.00</td>
+                   <td>-</td>
+                 </tr>
+                 <tr>
+                   <td>2016</td>
+                   <td>110 - Unrestricted</td>
+                   <td>62020 - Finance Office</td>
+                   <td>Compensation Expenses</td>
+                   <td>100,000.00</td>
+                   <td>50,000.00</td>
+                   <td>50,000.00</td>
+                   <td>50,000.00</td>
+                   <td>-</td>
+                 </tr>
+                 <tr>
+                   <td>2016</td>
+                   <td>110 - Unrestricted</td>
+                   <td>62020 - Finance Office</td>
+                   <td>Revenue</td>
+                   <td>20,000.00</td>
+                   <td>30,000.00</td>
+                   <td>17,000.00</td>
+                   <td>-</td>
+                   <td>13,000.00</td>
+                 </tr>
+               </table>
+             </div>
            </section>
 

@@ -2434,11 +2434,11 @@ var availableYears = [
 ];
 
 var bookmarks = [
-  'Revenue',
-  'Expense - NonComp',
-  'Expense - Comp',
   'Expense - Capital',
-  'Expense - Vehicles'
+  'Expense - Comp',
+  'Expense - NonComp',
+  'Expense - Vehicles',
+  'Revenue'
 ];
 
 // name of autocomplete list, 0 = single select or 1 = multi-select, length of
@@ -2464,11 +2464,14 @@ $(document).ready( function() {
           autocompletes[i][2])
       );
 
+      $('#filter-' + autocompletes[i][0]).select2();
     } else if (autocompletes[i][1] == 2) {
       $('#choose-' + autocompletes[i]).append(
         inputSelectFromList(eval(autocompletes[i][0]),
           100)
       );
+
+      $('#choose-' + autocompletes[i]).select2();
     }
   }
 });
@@ -2489,3 +2492,4 @@ function inputSelectFromList(listOfElements, valueLength) {
 function toCapitalized(txt) {
   return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
 }
+

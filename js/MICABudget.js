@@ -1,5 +1,3 @@
-// alert(location.hash);
-
 pageSections = ['overview',
              'yeartoyear',
              'flow',
@@ -24,8 +22,7 @@ $(window).on('hashchange', function() {
 
   $("#mainContent").load("sections/" + sectionToLoad + ".html");
   $.getScript("js/" + sectionToLoad + ".js");
-  $("li.active").toggleClass('active');
+  $("li.active,button.active").toggleClass('active');
   $("#nav-" + sectionToLoad).toggleClass('active');
 });
-
 

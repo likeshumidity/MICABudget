@@ -7,9 +7,13 @@
 
   <title>MICA Budget Viewer</title>
 
+  <link rel="shortcut icon" type="image/png" href="../favicon.png">
+
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
     integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ=="
     crossorigin="anonymous">
+  <link rel="stylesheet"
+        href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -18,12 +22,13 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 
+  <link rel="stylesheet" href="css/select2.min.css">
+
   <link rel="stylesheet" href="css/MICABudget.css">
   <link rel="stylesheet" href="css/bullet.css">
   <link rel="stylesheet" href="css/yeartoyear.css">
   <link rel="stylesheet" href="css/flow.css">
   <link rel="stylesheet" href="css/table.css">
-  <link rel="stylesheet" href="css/recentchanges.css">
   <link rel="stylesheet" href="css/bookmark.css">
 </head>
 
@@ -55,7 +60,6 @@
           <li id="nav-yeartoyear"><a href="#yeartoyear">Year to Year</a></li>
           <li id="nav-flow"><a href="#flow">Flow</a></li>
           <li id="nav-table"><a href="#table">Table</a></li>
-          <li id="nav-recentchanges"><a href="#recentchanges">Recent Changes</a></li>
         </ul>
       </div>
     </div>
@@ -63,49 +67,50 @@
 
   <div class="container-fluid clearfix">
     <div class="row">
-      <div class="col-sm-2 sidebar">
+      <div class="col-sm-3 sidebar">
         <form role="form" class="filter-form">
           <h2>Filters</h2>
           <div class="form-group">
             <label for="filter-accounts">Accounts</label>
-            <select id="filter-accounts" multiple style="display: none;">
+            <select id="filter-accounts" multiple>
             </select>
           </div>
           <div class="form-group">
             <label for="filter-funds">Funds</label>
-            <select id="filter-funds" multiple style="display: none;">
+            <select id="filter-funds" multiple>
             </select>
           </div>
           <div class="form-group">
             <label for="filter-departments">Departments</label>
-            <select id="filter-departments" multiple style="display: none;">
+            <select id="filter-departments" multiple>
             </select>
           </div>
           <div class="form-group">
             <label for="filter-programs">Programs</label>
-            <select id="filter-programs" multiple style="display: none;">
+            <select id="filter-programs" multiple>
             </select>
           </div>
           <div class="form-group">
             <label for="filter-years">Years</label>
-            <select id="filter-years" multiple style="display: none;">
+            <select id="filter-years" multiple>
             </select>
           </div>
           <hr>
           <div class="form-group">
             <label for="choose-bookmarks">Bookmarked Filters</label>
-            <select id="choose-bookmarks">
-            </select>
             <button type="button" id="nav-bookmark"
                                   class="btn btn-default btn-sm pull-right"
                                   aria-label="Edit Bookmark">
               <a href="#bookmark"><i class="glyphicon glyphicon-bookmark"
                                      aria-hidden="true"></i></a>
             </button>
+            <select id="choose-bookmarks">
+            </select>
+            <p class="clearfix notice-unsaved">unsaved changes</p>
           </div>
         </form>
       </div>
-      <div class="col-sm-10">
+      <div class="col-sm-9">
         <main role="main" id="mainContent">
         </main>
       </div>
@@ -120,6 +125,7 @@
     crossorigin="anonymous"></script>
   <script src="https://d3js.org/d3.v3.min.js"></script>
 
+  <script src="js/select2.full.js"></script>
   <script src="js/sankey.js"></script>
 
   <script src="js/filters.js"></script>

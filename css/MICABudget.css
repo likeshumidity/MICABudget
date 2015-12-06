@@ -20,12 +20,11 @@ button.navbar-toggle .icon-bar {
 }
 
 #nav-bookmark {
-  margin-top: 5px;
-  border: none;
+  margin-bottom: 5px;
 }
 
 #nav-bookmark i {
-  font-size: 16pt;
+  font-size: 14pt;
 }
 
 form.filter-form h2 {
@@ -39,10 +38,24 @@ ul {
   padding: 0px 0px 0px 0px;
 }
 
+ul.select2-results__options,
+#select2-choose-bookmarks-container,
 form.filter-form .form-group li,
 form.filter-form .form-group input,
 form.filter-form .form-group a {
   font-size: 7pt;
-  z-index: 3;
+}
+
+.select2-results__option[aria-selected=true] {
+  display: none;
+}
+
+.filter-form .form-group select {
+  width: 100%;
+}
+
+p.notice-unsaved {
+  text-align: center;
+  color: #bbb;
 }
 
