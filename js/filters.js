@@ -728,7 +728,7 @@ var availableAccounts = [
   "800000 - Budget Offset/System Maintaind",
   "800001 - Budget Offset",
   "900000 - Statistical Accounts"
-  ];
+];
 
 var availableFunds = [
   "110 - Current Unrestricted",
@@ -748,7 +748,7 @@ var availableFunds = [
   "270 - T/R Unexpended Plant",
   "310 - Student Loans",
   "350 - Permanent Endowment"
-  ];
+];
 
 var availableDepartments = [
   "12001 - Tuition & Fees",
@@ -1777,7 +1777,7 @@ var availableDepartments = [
   "99201 - Board Reserve for Fixed Assets",
   "99202 - Board Res-Building Renewal",
   "99203 - Board Res-Equipment Replacemen"
-  ];
+];
 
 var availablePrograms = [
   "0000 - All Programs",
@@ -2421,7 +2421,7 @@ var availablePrograms = [
   "9506 - Babette Sculpture",
   "9507 - William Henry Jackson Photocro",
   "9508 - Presidential Chain"
-  ];
+];
 
 var availableYears = [
   "2017",
@@ -2431,82 +2431,65 @@ var availableYears = [
   "2013",
   "2012",
   "2011"
-  ];
-
-var autocompletes = [
-  'accounts',
-  'funds',
-  'departments',
-  'programs',
-  'years'
 ];
 
-for (i = 0; i < autocompletes.length; i++) {
-  $('#filter-' + autocompletes[i]).autocomplete({
-    source: eval('available' + toTitleCase(autocompletes[i]))
-  });
-}
+var bookmarks = [
+  'Revenue',
+  'Expense - NonComp',
+  'Expense - Comp',
+  'Expense - Capital',
+  'Expense - Vehicles'
+];
 
-/*
-$(document).ready(function () {
-  $('#filter-accounts').autocomplete({
-    source: availableAccounts,
-    minLength: 0,
-    select:function(event, ui) {
+// name of autocomplete list, 0 = single select or 1 = multi-select, length of
+// id value
+var autocompletes = [
+  ['accounts', 1, 6],
+  ['funds', 1, 3],
+  ['departments', 1, 5],
+  ['programs', 1, 4],
+  ['years', 1, 4],
+  ['bookmarks', 2, 0]
+];
 
-      selectedAccounts.push(ui.item.label);
-    }
-  }).focus(function () {
-    try {
-      $(this).autocomplete("search");
-    }
-    catch (e) {
+$(document).ready( function() {
+  for (i = 0; i < autocompletes.length; i++) {
+    if (autocompletes[i][1] == 0) {
+      $('#choose-' + autocompletes[i]).autocomplete({
+        source: eval(autocompletes[i][0])
+      });
+    } else if (autocompletes[i][1] == 1) {
+      $('#filter-' + autocompletes[i][0]).append(
+        inputSelectFromList(eval('available' + toCapitalized(autocompletes[i][0])),
+          autocompletes[i][2])
+      );
 
+      $('#filter-' + autocompletes[i][0]).easySelect({
+        removeIcon: '<i class="glyphicon glyphicon-remove" aria-hidden="true"></i>',
+        onKeyup: null // Replace with function to review selection and update d3.
+      });
+    } else if (autocompletes[i][1] == 2) {
+      $('#choose-' + autocompletes[i]).append(
+        inputSelectFromList(eval(autocompletes[i][0]),
+          100)
+      );
     }
-  })
-  .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
-    var checked = ($.inArray(item.label, selectedAccounts) >= 0 ? ' checked' : '');
-    return $( "<li></li>" )
-      .data( "ui-autocomplete-item", item )
-      .append( '<a><input type="checkbox"' + checked + '/>' + item.label + '</a>' )
-      .appendTo( ul );
   }
-
 });
-*/
 
-/*
-$(document).ready(populateFilters('accounts'));
-$(document).ready(populateFilters('funds'));
-$(document).ready(populateFilters('departments'));
-$(document).ready(populateFilters('programs'));
-$(document).ready(populateFilters('years'));
-
-function populateFilters(thisFilter) {
-  $('#filter-' + thisFilter).autocomplete({
-    source: eval('available' + toTitleCase(thisFilter)),
-    minLength: 0,
-    select: function(event, ui) {
-      eval('selected' + toTitleCase(thisFilter)).push(ui.item.label);
-    }
-  }).focus(function () {
-    try {
-      $(this).autocomplete('search for ' + thisFilter);
-    } catch (e) {
-    }
-  }).data('ui-autocomplete')._renderItem = function(ul, item) {
-    var hidden = 
-      ($.inArray(item.label, eval('selected' + toTitleCase(thisFilter))) >= 0 ? 'hidden' : '');
-    return $('<li></li>')
-      .data('ui-autocomplete-item', item)
-//      .append('<a><input type="checkbox" ' + checked + '/>' + item.label + '</a>')
-      .append('<span ' + hidden + '>' + item.label + '</span>')
-      .appendTo(ul);
+function inputSelectFromList(listOfElements, valueLength) {
+  var htmlFragment = '';
+  for (j = 0; j < listOfElements.length; j++) {
+    htmlFragment += '<option value="'
+      + listOfElements[j].substr(0,valueLength)
+      + '">'
+      + listOfElements[j]
+      + '</option>';
   }
-}
-*/
 
-function toTitleCase(txt) {
+  return htmlFragment;
+}
+
+function toCapitalized(txt) {
   return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
 }
-

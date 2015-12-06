@@ -18,6 +18,8 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 
+  <link rel="stylesheet" href="css/jquery.easyselect.min.css">
+
   <link rel="stylesheet" href="css/MICABudget.css">
   <link rel="stylesheet" href="css/bullet.css">
   <link rel="stylesheet" href="css/yeartoyear.css">
@@ -67,62 +69,41 @@
         <form role="form" class="filter-form">
           <h2>Filters</h2>
           <div class="form-group">
-            <input type="text" id="filter-accounts" placeholder="Accounts" />
-            <ul>
-              <li>492883 - Training/Travel and Lodging</li>
-              <li>492883 - Training/Travel and Lodging</li>
-              <li>492883 - Training/Travel and Lodging</li>
-              <li>492883 - Training/Travel and Lodging</li>
-            </ul>
+            <label for="filter-accounts">Accounts</label>
+            <select id="filter-accounts" multiple style="display: none;">
+            </select>
           </div>
           <div class="form-group">
-            <input type="text" id="filter-funds" placeholder="Funds" />
-            <ul>
-              <li>492 - Training/Travel and Lodging</li>
-              <li>492 - Training/Travel and Lodging</li>
-              <li>492 - Training/Travel and Lodging</li>
-              <li>492 - Training/Travel and Lodging</li>
-            </ul>
+            <label for="filter-funds">Funds</label>
+            <select id="filter-funds" multiple style="display: none;">
+            </select>
           </div>
           <div class="form-group">
-            <input type="text" id="filter-departments" placeholder="Departments" />
-            <ul>
-              <li>49288 - Training/Travel and Lodging</li>
-              <li>49288 - Training/Travel and Lodging</li>
-              <li>49288 - Training/Travel and Lodging</li>
-              <li>49288 - Training/Travel and Lodging</li>
-            </ul>
+            <label for="filter-departments">Departments</label>
+            <select id="filter-departments" multiple style="display: none;">
+            </select>
           </div>
           <div class="form-group">
-            <input type="text" id="filter-programs" placeholder="Programs" />
-            <ul>
-              <li>4928 - Training/Travel and Lodging</li>
-              <li>4928 - Training/Travel and Lodging</li>
-              <li>4928 - Training/Travel and Lodging</li>
-              <li>4928 - Training/Travel and Lodging</li>
-            </ul>
+            <label for="filter-programs">Programs</label>
+            <select id="filter-programs" multiple style="display: none;">
+            </select>
           </div>
           <div class="form-group">
-            <input type="text" id="filter-years" placeholder="Years" />
-            <ul>
-              <li>2016</li>
-              <li>2015</li>
-              <li>2014</li>
-              <li>2013</li>
-              <li>2012</li>
-            </ul>
+            <label for="filter-years">Years</label>
+            <select id="filter-years" multiple style="display: none;">
+            </select>
           </div>
           <hr>
           <div class="form-group">
-              <label for="bookmark-list">Bookmarked Filters</label>
-              <select class="form-control input-sm" id="bookmark-list">
-              </select>
-              <button type="button" id="nav-bookmark"
-                                    class="btn btn-default btn-sm pull-right"
-                                    aria-label="Edit Bookmark">
-                <a href="#bookmark"><i class="glyphicon glyphicon-bookmark"
-                                       aria-hidden="true"></i></a>
-              </button>
+            <label for="choose-bookmarks">Bookmarked Filters</label>
+            <select id="choose-bookmarks">
+            </select>
+            <button type="button" id="nav-bookmark"
+                                  class="btn btn-default btn-sm pull-right"
+                                  aria-label="Edit Bookmark">
+              <a href="#bookmark"><i class="glyphicon glyphicon-bookmark"
+                                     aria-hidden="true"></i></a>
+            </button>
           </div>
         </form>
       </div>
@@ -142,6 +123,7 @@
   <script src="https://d3js.org/d3.v3.min.js"></script>
 
   <script src="js/sankey.js"></script>
+  <script src="js/jquery.easyselect.min.js"></script>
 
   <script src="js/filters.js"></script>
   <script src="js/MICABudget.js"></script>
