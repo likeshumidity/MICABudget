@@ -27,3 +27,4 @@ function loadSectionFromHash() {
   $("#nav-" + sectionToLoad).toggleClass('active');
 }
 
+
