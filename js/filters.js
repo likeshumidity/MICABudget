@@ -189,6 +189,11 @@ var users = {
 var thisUser = 'staffdriver' // Set default user if none selected
 var thisUserFakeData = [];
 var $chooseBookmarks = {};
+var $accounts = {};
+var $funds = {};
+var $departments = {};
+var $programs = {};
+var $years = {};
 
 var selectedAccounts = [];
 var selectedFunds = [];
@@ -204,16 +209,16 @@ var availableYears = [];
 
 var bookmarksPublic = {
   'All': {
-    'acct': [
+    'accounts': [
       '*'
     ],
-    'fund': [
+    'funds': [
       '*'
     ],
-    'dept': [
+    'departments': [
       '*'
     ],
-    'prog': [
+    'programs': [
       '*'
     ],
     'years': [
@@ -221,33 +226,38 @@ var bookmarksPublic = {
     ]
   },
   'None': {
-    'acct': [
-      '*'
+    'accounts': [
+      ''
     ],
-    'fund': [
-      '*'
+    'funds': [
+      ''
     ],
-    'dept': [
-      '*'
+    'departments': [
+      ''
     ],
-    'prog': [
-      '*'
+    'programs': [
+      ''
     ],
     'years': [
-      '*'
+      ''
     ]
   },
   'Expense - Capital': {
-    'acct': [
+    'accounts': [
+      "571212 - Building Improvement",
+      "571223 - Equipment and Furnishing",
+      "573002 - Construction in Process - Bldg"
+    ],
+    'funds': [
       '*'
     ],
-    'fund': [
-      '*'
+    'departments': [
+      "99101 - Capital - Land & Building",
+      "99102 - Capital - Buildng Improvements",
+      "99103 - Capital - Operations Equipment",
+      "99105 - Capital - Offc Technology Proj"
     ],
-    'dept': [
-      '*'
-    ],
-    'prog': [
+    'programs': [
       '*'
     ],
     'years': [
@@ -255,51 +265,62 @@ var bookmarksPublic = {
     ]
   },
   'Expense - Comp': {
-    'acct': [
+    'accounts': [
+      "312101 - Exempt Staff",
+      "312102 - Non-exempt Staff",
+      "312103 - Part Time Staff",
+      "312108 - Temporary Staff MICA"
+    ],
+    'funds': [
       '*'
     ],
-    'fund': [
+    'departments': [
       '*'
     ],
-    'dept': [
-      '*'
-    ],
-    'prog': [
-      '*'
+    'programs': [
+      ''
     ],
     'years': [
       '*'
     ]
   },
   'Expense - NonComp': {
-    'acct': [
+    'accounts': [
+      "101002 - Office Supplies",
+      "101006 - Special Event Supplies",
+      "101007 - First Aid Supplies",
+      "101008 - Uniforms",
+      "104000 - Vehicle Maintenance",
+      "104002 - Vehicle Fuel",
+      "104003 - Vehicle Licences",
+      "105011 - Staff Training",
+      "111004 - Safety Inspections"
+    ],
+    'funds': [
       '*'
     ],
-    'fund': [
+    'departments': [
       '*'
     ],
-    'dept': [
-      '*'
-    ],
-    'prog': [
-      '*'
+    'programs': [
+      ''
     ],
     'years': [
       '*'
     ]
   },
   'Expense - Vehicles': {
-    'acct': [
+    'accounts': [
       '104000 - Vehicle Maintenance',
       '104002 - Vehicle Fuel'
     ],
-    'fund': [
+    'funds': [
       '110 - Current Unrestricted'
     ],
-    'dept': [
-      '71501 - FACMAN Vehicles'
+    'departments': [
+      "71501 - FACMAN Vehicles"
     ],
-    'prog': [
+    'programs': [
       ''
     ],
     'years': [
@@ -320,6 +341,16 @@ var autocompletes = [
   ['bookmarksPrivate', 5, 0]
 ];
 
+var autocompletes2 = {
+  'accounts': [3, 6],
+  'funds': [3, 3],
+  'departments': [3, 5],
+  'programs': [3, 4],
+  'years': [3, 4],
+  'bookmarksPublic': [6],
+  'bookmarksPrivate': [5]
+};
+
 $('.userchange').click( function() {
   thisUser = $(this)
     .context
@@ -328,13 +359,17 @@ $('.userchange').click( function() {
 
   loadAutocompletes();
   loadUserChartfields();
+  bookmarksUpdate();
 
   $('.selected-user').toggleClass('selected-user');
   $(this).addClass('selected-user');
 });
 
-$(document).ready(loadAutocompletes);
-$(document).ready(loadUserChartfields); 
+$(document).ready(function() {
+  loadAutocompletes();
+  loadUserChartfields();
+  bookmarksUpdate();
+});
 
 // must use below function due to lack of user permissions available
 function loadUserChartfields() {
@@ -359,13 +394,6 @@ function loadAutocompletes() {
       $('#choose-' + autocompletes[i]).autocomplete({
         source: eval(autocompletes[i][0])
       });
-    } else if (autocompletes[i][1] == 1) {
-      $('#filter-' + autocompletes[i][0]).append(
-        inputSelectFromList(eval('available' + toCapitalized(autocompletes[i][0])),
-          autocompletes[i][2])
-      );
-
-      eval('$' + autocompletes[i][0]) = $('#filter-' + autocompletes[i][0]).select2();
     } else if (autocompletes[i][1] == 2) {
       $('#choose-' + autocompletes[i]).append(
         inputSelectFromList(eval(autocompletes[i][0]),
@@ -381,7 +409,7 @@ function loadAutocompletes() {
           autocompletes[i][2])
       );
 
-      $('#filter-' + autocompletes[i][0]).select2();
+      eval('$' + autocompletes[i][0] + ' =  $("#filter-' + autocompletes[i][0] + '").select2();');
     } else if (autocompletes[i][1] == 4) {
       $('#choose-bookmarks').html('');
       $('#choose-bookmarks')
@@ -400,7 +428,9 @@ function loadAutocompletes() {
             + key
             + '</option>');
       });
+
       var $chooseBookmarks = $('#choose-bookmarks').select2();
+
     }
   }
 }
@@ -409,7 +439,8 @@ function inputSelectFromList(listOfElements, valueLength) {
   var htmlFragment = '';
   for (j = 0; j < listOfElements.length; j++) {
     htmlFragment += '<option value="'
-      + listOfElements[j].substr(0,valueLength)
+//      + listOfElements[j].substr(0,valueLength)
+      + listOfElements[j]
       + '">'
       + listOfElements[j]
       + '</option>';
@@ -433,27 +464,67 @@ function populateChartfieldLists(username) {
 }
 
 $('#choose-bookmarks').change(function() {
-  // does this change trigger filter attributes change data refresh?
-  console.log('refresh filters from bookmark');
-  // $accounts.val(null).trigger('change');
-  // $.each('accounts' $accounts.
+  bookmarksUpdate($(this).context.value);
+});
+
+// accepts bookmark name as string or sets 'All' as default
+function bookmarksUpdate(bm) {
+  if (bm === undefined) {
+    bm = 'All';
+  }
+
+  $.each(bookmarksPublic, function(key, val) {
+    var valueList = [];
+    if (key == bm) {
+      $.each(val, function(key2, val2) {
+        eval('$' + key2 + '.val(null).trigger("change");');
+
+        if (val2.length == 1 && val2[0] === "*") {
+          eval('valueList = available' + toCapitalized(key2) + ';');
+        } else {
+          valueList = val2;
+        }
+
+        if(valueList.length > 0) {
+          eval('$' + key2 + '.val(valueList).trigger("change");');
+        }
+      });
+    }
+  });
+
+  $('.notice-unsaved').addClass('hide-this');
+}
+
+function filterClearAll(id) {
+  eval('$' + id.substr(0, id.length - 10) + '.val(null).trigger("change");');
+}
+
+function filterSelectAll(id) {
+  var filterName = id.substr(0, id.length - 11);
+  var allValues = eval('available' + toCapitalized(filterName));
+
+  if (allValues.length == 1) {
+    eval('$' + filterName + '.val(allValues[0]).trigger("change");');
+  } else if (allValues.length > 1) {
+    eval('$' + filterName + '.val(allValues).trigger("change");');
+  } else {
+    // Do nothing
+  }
+}
+
+$('.select-all').click(function() {
+  filterSelectAll($(this).context.id);
+});
+
+$('.clear-all').click(function() {
+  filterClearAll($(this).context.id);
 });
 
 $('.filter-attributes').change(function() {
   console.log('refresh data from updated filter list and mark as unsaved');
+  $('.hide-this').removeClass('hide-this');
 });
 
-$('.select-all').click(function() {
-  console.log('select all from '
-              + $(this).context.id.substr(0,$(this).context.id.length - 11)
-              + ' and refresh data');
-});
-
-$('.clear-all').click(function() {
-  console.log('clear all from '
-              + $(this).context.id.substr(0,$(this).context.id.length - 10)
-              + ' and refresh data');
-});
 
 // Load data available to user
 
