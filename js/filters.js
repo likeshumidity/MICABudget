@@ -188,6 +188,7 @@ var users = {
 
 var thisUser = 'staffdriver' // Set default user if none selected
 var thisUserFakeData = [];
+var $chooseBookmarks = {};
 
 var selectedAccounts = [];
 var selectedFunds = [];
@@ -201,15 +202,111 @@ var availableDepartments = [];
 var availablePrograms = [];
 var availableYears = [];
 
-var bookmarksPublic = [
-  'All',
-  'None',
-  'Expense - Capital',
-  'Expense - Comp',
-  'Expense - NonComp',
-  'Expense - Vehicles',
-  'Revenue'
-];
+var bookmarksPublic = {
+  'All': {
+    'acct': [
+      '*'
+    ],
+    'fund': [
+      '*'
+    ],
+    'dept': [
+      '*'
+    ],
+    'prog': [
+      '*'
+    ],
+    'years': [
+      '*'
+    ]
+  },
+  'None': {
+    'acct': [
+      '*'
+    ],
+    'fund': [
+      '*'
+    ],
+    'dept': [
+      '*'
+    ],
+    'prog': [
+      '*'
+    ],
+    'years': [
+      '*'
+    ]
+  },
+  'Expense - Capital': {
+    'acct': [
+      '*'
+    ],
+    'fund': [
+      '*'
+    ],
+    'dept': [
+      '*'
+    ],
+    'prog': [
+      '*'
+    ],
+    'years': [
+      '*'
+    ]
+  },
+  'Expense - Comp': {
+    'acct': [
+      '*'
+    ],
+    'fund': [
+      '*'
+    ],
+    'dept': [
+      '*'
+    ],
+    'prog': [
+      '*'
+    ],
+    'years': [
+      '*'
+    ]
+  },
+  'Expense - NonComp': {
+    'acct': [
+      '*'
+    ],
+    'fund': [
+      '*'
+    ],
+    'dept': [
+      '*'
+    ],
+    'prog': [
+      '*'
+    ],
+    'years': [
+      '*'
+    ]
+  },
+  'Expense - Vehicles': {
+    'acct': [
+      '104000 - Vehicle Maintenance',
+      '104002 - Vehicle Fuel'
+    ],
+    'fund': [
+      '110 - Current Unrestricted'
+    ],
+    'dept': [
+      '71501 - FACMAN Vehicles'
+    ],
+    'prog': [
+      ''
+    ],
+    'years': [
+      '*'
+    ]
+  }
+};
 
 // name of autocomplete list, 0 = single select or 1 = multi-select, length of
 // id value
@@ -219,7 +316,7 @@ var autocompletes = [
   ['departments', 3, 5],
   ['programs', 3, 4],
   ['years', 3, 4],
-  ['bookmarksPublic', 4, 0],
+  ['bookmarksPublic', 6, 0],
   ['bookmarksPrivate', 5, 0]
 ];
 
@@ -268,7 +365,7 @@ function loadAutocompletes() {
           autocompletes[i][2])
       );
 
-      $('#filter-' + autocompletes[i][0]).select2();
+      eval('$' + autocompletes[i][0]) = $('#filter-' + autocompletes[i][0]).select2();
     } else if (autocompletes[i][1] == 2) {
       $('#choose-' + autocompletes[i]).append(
         inputSelectFromList(eval(autocompletes[i][0]),
@@ -292,6 +389,18 @@ function loadAutocompletes() {
       $('#choose-bookmarks-public')
         .append(inputSelectFromList(eval(autocompletes[i][0]), 100));
       $('#choose-bookmarks').select2();
+    } else if (autocompletes[i][1] == 6) {
+      $('#choose-bookmarks').html('');
+      $('#choose-bookmarks')
+        .append('<optgroup label="Public" id="choose-bookmarks-public"></optgroup>');
+      $.each(bookmarksPublic, function(key, val) {
+        $('#choose-bookmarks-public').append('<option value="'
+            + key
+            + '">'
+            + key
+            + '</option>');
+      });
+      var $chooseBookmarks = $('#choose-bookmarks').select2();
     }
   }
 }
@@ -326,6 +435,8 @@ function populateChartfieldLists(username) {
 $('#choose-bookmarks').change(function() {
   // does this change trigger filter attributes change data refresh?
   console.log('refresh filters from bookmark');
+  // $accounts.val(null).trigger('change');
+  // $.each('accounts' $accounts.
 });
 
 $('.filter-attributes').change(function() {
@@ -344,5 +455,6 @@ $('.clear-all').click(function() {
               + ' and refresh data');
 });
 
+// Load data available to user
 
 

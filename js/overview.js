@@ -277,6 +277,41 @@ function drawBullets() {
   });
 }
 
+var accountTypes = [
+  { '4': {
+           'title': 'Revenue',
+           'subtitle': '$, in thousands',
+           'ranges': [],
+           'measures': [],
+           'markers': []}
+  },
+  { '1': {
+           'title': 'Expense - NonComp',
+           'subtitle': '$, in thousands',
+           'ranges': [],
+           'measures': [],
+           'markers': []}
+  },
+  { '3': {
+           'title': 'Expense - Comp',
+           'subtitle': '$, in thousands',
+           'ranges': [],
+           'measures': [],
+           'markers': []}
+  },
+  { '5': {
+           'title': 'Expense - Capital',
+           'subtitle': '$, in thousands',
+           'ranges': [],
+           'measures': [],
+           'markers': []}
+  }
+]
+
+function buildBulletJSON(accountTypes, trans) { //account types and transactions
+  
+}
+
 drawBullets(); // Draw bullets on load
 
 $(window).resize(function () {
