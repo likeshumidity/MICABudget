@@ -286,11 +286,12 @@ function loadAutocompletes() {
 
       $('#filter-' + autocompletes[i][0]).select2();
     } else if (autocompletes[i][1] == 4) {
+      $('#choose-bookmarks').html('');
       $('#choose-bookmarks')
         .append('<optgroup label="Public" id="choose-bookmarks-public"></optgroup>');
       $('#choose-bookmarks-public')
         .append(inputSelectFromList(eval(autocompletes[i][0]), 100));
-      $('#choose-bookmarks' + autocompletes[i]).select2();
+      $('#choose-bookmarks').select2();
     }
   }
 }
