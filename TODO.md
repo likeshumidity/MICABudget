@@ -6,8 +6,6 @@
 * map line chart to data
 * map table to data
 * change filters, updates data
-* changing bookmarks, changes filters and update data
-* unsaved changes shows if changed from original filter
 * account categories - rev, exp, etc.
 
 ## preferred - functionality:
