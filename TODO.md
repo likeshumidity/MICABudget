@@ -3,13 +3,10 @@
 ## required - functionality:
 * map flow to data
 * map bullet to data
-* map line chart to data
 * map table to data
-* change filters, updates data
 * account categories - rev, exp, etc.
 
 ## preferred - functionality:
-* select all/clear all functions
 * bullet - mouseover
 * year to year - mouseover
 * flow - select chartfields
