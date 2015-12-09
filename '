@@ -191,6 +191,12 @@ var $departments = {};
 var $programs = {};
 var $years = {};
 
+var rawData = [];
+
+$.getJSON('data/fakeDataTrans.json', function(data) {
+  rawData = data;
+});
+
 var filteredData = [];
 var selectedAccounts = [];
 var selectedFunds = [];
@@ -348,9 +354,7 @@ var autocompletes2 = {
   'bookmarksPrivate': [5]
 };
 
-$('.userchange').click( function() {
-  toggleOnChange('.filter-attributes', 'off');
-
+$('.userchange').on('click', function() {
   thisUser = $(this)
     .context
     .id
@@ -358,12 +362,9 @@ $('.userchange').click( function() {
 
   loadAutocompletes();
   bookmarksUpdate();
-  filterData();
 
   $('.selected-user').toggleClass('selected-user');
   $(this).addClass('selected-user');
-
-  toggleOnChange('.filter-attributes', 'on');
 });
 
 $(document).ready(function() {
@@ -371,11 +372,30 @@ $(document).ready(function() {
   bookmarksUpdate();
   filterData();
 
-  $('.filter-attributes').change(function() {
+  $('.filter-attributes').off().on('change', function() {
     filterData();
     $('.hide-this').removeClass('hide-this');
   });
 });
+
+/*
+// must use below function due to lack of user permissions available
+function loadUserChartfields() {
+  $.getJSON('data/fakeDataTrans.json', function(data) {
+    $.each(data, function(key, val) {
+      if (($.inArray(val.acct, eval('accessPrivileges.' + thisUser + '.accounts')) > -1)
+          && ($.inArray(val.fund, eval('accessPrivileges.' + thisUser + '.funds')) > -1)
+          && ($.inArray(val.dept, eval('accessPrivileges.' + thisUser + '.departments')) > -1)
+          && ($.inArray(val.year, eval('accessPrivileges.' + thisUser + '.years')) > -1)) {
+        if (((eval('accessPrivileges.' + thisUser + '.programs').length) == 0)
+            || ($.inArray(val.prog, eval('accessPrivileges.' + thisUser + '.programs')) > -1)) {
+          thisUserFakeData.push(val);
+        }
+      }
+    });
+  });
+}
+*/
 
 function loadAutocompletes() {
   for (i = 0; i < autocompletes.length; i++) {
@@ -452,7 +472,7 @@ function populateChartfieldLists(username) {
   availableYears = eval('accessPrivileges.' + username + '.years');
 }
 
-$('#choose-bookmarks').change(function() {
+$('#choose-bookmarks').off().on('change', function() {
   bookmarksUpdate($(this).context.value);
 });
 
@@ -501,47 +521,50 @@ function filterSelectAll(id) {
   }
 }
 
-$('.select-all').click(function() {
+$('.select-all').off().on('click', function() {
   filterSelectAll($(this).context.id);
 });
 
-$('.clear-all').click(function() {
+$('.clear-all').off().on('click', function() {
   filterClearAll($(this).context.id);
 });
 
+var incrementalIndex = 0;
+
 // Load data available to user
 function filterData() {
-  filteredData = $.grep(rawData, isSelectedData);
-//  console.log(filteredData.length);
+  filteredData = rawData;
+
+  $.each(filteredData, function(key, val) {
+    if (
+        ($.inArray(val.acct, $accounts.val()) < 0)
+        || ($.inArray(val.fund, $funds.val()) < 0)
+        || ($.inArray(val.dept, $departments.val()) < 0)
+        || ($.inArray(val.year, $years.val()) < 0)
+        || (($programs.val() === null) && (val.prog.length > 0))
+        || ($.inArray(val.prog, $programs.val()) > -1)) {
+      if (filteredData[key] === val) {
+        filteredData.splice(key, 1);
+      }
+    }
+  });
+}
+/*
+  $.getJSON('data/fakeDataTrans.json', function(data) {
+    for(i = 0; i < data.length; i++) {
+    }
+
+    console.log(postFilter.length);
+
+    return postFilter;
+  });
+}
+*/
+
+
+function testFunc() {
+  console.log($(this));
 }
 
-function isSelectedData(val, key) {
-  if (($.inArray(val.acct, $accounts.val()) > -1)
-     && ($.inArray(val.fund, $funds.val()) > -1)
-     && ($.inArray(val.dept, $departments.val()) > -1)
-     && ($.inArray(val.year, $years.val()) > -1)
-     && ((($programs.val() === null) && (val.prog.length < 1))
-     || ($.inArray(val.prog, $programs.val()) > -1))) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
-var rawData = [];
-
-$.getJSON('data/fakeDataTrans.json', function(data) {
-  rawData = data;
-});
-
-function toggleOnChange(selector, changeTo) {
-  if (changeTo == 'on') {
-    $(selector).change(function() {
-      filterData();
-      $('.hide-this').removeClass('hide-this');
-    });
-  } else {
-    $(selector).off('change');
-  }
-}
+$(document).ready(testFunc);
 

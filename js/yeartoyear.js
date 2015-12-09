@@ -1,23 +1,3 @@
-function filterLineValues() {
-  var filteredValues;
-  
-  $.getJSON('data/fakeDataTrans.json', function(data) {
-    filteredValues = $.map(data, function(val, key) {
-      var valNew = null;
-
-      if ($.inArray(val.acct, $accounts.val()) > -1
-          || (($accounts.val().length < 1)
-          && ($.inArray(val.acct, availableAccounts) > -1))) {
-        valNew = val;
-      }
-
-      return valNew;
-    });
-  });
-
-  return filteredValues;
-}
-
 function drawLineChart() {
 var margin = {top: 20, right: 80, bottom: 30, left: 50},
   width = $('#mainContent').width() - margin.left - margin.right,
