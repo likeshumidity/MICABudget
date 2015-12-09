@@ -240,7 +240,9 @@ function bulletWidth(x) {
 
 })();
 
-function drawBullets() {
+function updateContent() {
+  $('.bullet-group').html('');
+
   var margin = {top: 10, right: 15, bottom: 25, left: 150},
       width = $('#mainContent').width() - margin.left - margin.right,
       height = 80 - margin.top - margin.bottom;
@@ -253,6 +255,8 @@ function drawBullets() {
   d3.json("data/bullets2.json", function(error, data) {
     if (error) throw error;
 
+    buildBulletJSON();
+    data = newAccountTypes;
     var svg = d3.select(".bullet-group").selectAll("svg").data(data)
       .enter().append("svg")
         .attr("class", "bullet")
@@ -277,45 +281,88 @@ function drawBullets() {
   });
 }
 
+var newAccountTypes = [];
 var accountTypes = [
-  { '4': {
-           'title': 'Revenue',
-           'subtitle': '$, in thousands',
-           'ranges': [],
-           'measures': [],
-           'markers': []}
+  { 
+    'prefix': '4',
+    'title': 'Revenue',
+    'subtitle': '$, in thousands',
+    'ranges': [],
+    'measures': [],
+    'markers': []
   },
-  { '1': {
-           'title': 'Expense - NonComp',
-           'subtitle': '$, in thousands',
-           'ranges': [],
-           'measures': [],
-           'markers': []}
+  {
+    'prefix': '1',
+    'title': 'Expense - NonComp',
+    'subtitle': '$, in thousands',
+    'ranges': [],
+    'measures': [],
+    'markers': []
   },
-  { '3': {
-           'title': 'Expense - Comp',
-           'subtitle': '$, in thousands',
-           'ranges': [],
-           'measures': [],
-           'markers': []}
+  {
+    'prefix': '3',
+    'title': 'Expense - Comp',
+    'subtitle': '$, in thousands',
+    'ranges': [],
+    'measures': [],
+    'markers': []
   },
-  { '5': {
-           'title': 'Expense - Capital',
-           'subtitle': '$, in thousands',
-           'ranges': [],
-           'measures': [],
-           'markers': []}
+  {
+    'prefix': '5',
+    'title': 'Expense - Capital',
+    'subtitle': '$, in thousands',
+    'ranges': [],
+    'measures': [],
+    'markers': []
   }
-]
+];
 
-function buildBulletJSON(accountTypes, trans) { //account types and transactions
-  
+function buildBulletJSON() { //account types and transactions
+  filterData();
+
+  $.each(filteredData, function(key, val) {
+    for (i = 0; i < accountTypes.length; i++) {
+      if (val.acct.charAt(0) == accountTypes[i].prefix) {
+        if (accountTypes[i].measures.length < 1) {
+          accountTypes[i].measures.push(parseFloat(val.amount));
+        } else {
+          accountTypes[i].measures[0] += parseFloat(val.amount);
+        }
+
+        if (accountTypes[i].markers.length < 1) {
+          accountTypes[i].markers.push(parseFloat(val.yep));
+        } else {
+          accountTypes[i].markers[0] += parseFloat(val.yep);
+        }
+
+        if (accountTypes[i].markers[0] > accountTypes[i].measures[0]) {
+          accountTypes[i].ranges[0] = accountTypes[i].markers[0] * .8;
+          accountTypes[i].ranges[1] = accountTypes[i].markers[0] * 1.05;
+          accountTypes[i].ranges[2] = accountTypes[i].markers[0] * 1.2;
+        } else {
+          accountTypes[i].ranges[0] = accountTypes[i].measures[0] * .8;
+          accountTypes[i].ranges[1] = accountTypes[i].measures[0] * 1.05;
+          accountTypes[i].ranges[2] = accountTypes[i].measures[0] * 1.2;
+        }
+      }
+    }
+  });
+
+  newAccountTypes = [];
+
+  $.each(accountTypes, function(key, val) {
+    if (val === undefined || val.ranges.length < 1) {
+      // do nothing
+    } else {
+      newAccountTypes.push(val);
+    }
+  });
 }
 
-drawBullets(); // Draw bullets on load
+updateContent(); // Draw bullets on load
 
 $(window).resize(function () {
   $('.bullet-group').html('');
-  drawBullets();
+  updateContent();
 });
 
