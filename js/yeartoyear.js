@@ -93,6 +93,7 @@ d3.tsv("data/lines.tsv", function(error, data) {
 }
 
 $(document).ready(function () {
+  filterData();
   drawLineChart();
 });
 
