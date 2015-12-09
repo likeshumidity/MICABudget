@@ -282,7 +282,8 @@ function updateContent() {
 }
 
 var newAccountTypes = [];
-var accountTypes = [
+var accountTypes = [];
+var protoAccountTypes = [
   { 
     'prefix': '4',
     'title': 'Revenue',
@@ -319,6 +320,7 @@ var accountTypes = [
 
 function buildBulletJSON() { //account types and transactions
   filterData();
+  accountTypes = protoAccountTypes;
 
   $.each(filteredData, function(key, val) {
     for (i = 0; i < accountTypes.length; i++) {
