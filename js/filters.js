@@ -359,6 +359,7 @@ $('.userchange').click( function() {
   loadAutocompletes();
   bookmarksUpdate();
   filterData();
+  updateContent();
 
   $('.selected-user').toggleClass('selected-user');
   $(this).addClass('selected-user');
@@ -373,6 +374,7 @@ $(document).ready(function() {
 
   $('.filter-attributes').change(function() {
     filterData();
+    updateContent();
     $('.hide-this').removeClass('hide-this');
   });
 });
@@ -538,6 +540,7 @@ function toggleOnChange(selector, changeTo) {
   if (changeTo == 'on') {
     $(selector).change(function() {
       filterData();
+      updateContent();
       $('.hide-this').removeClass('hide-this');
     });
   } else {
