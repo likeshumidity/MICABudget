@@ -1,10 +1,7 @@
 # MICABudget TODO
 
 ## required - functionality:
-* map flow to data
-* map bullet to data
 * map table to data
-* account categories - rev, exp, etc.
 
 ## preferred - functionality:
 * bullet - mouseover

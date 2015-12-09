@@ -1,16 +1,22 @@
 // Set global variables
-var units = "Widgets";
+var units = "k USD";
 var width = 0;
 var height = 0;
 
-function drawSankey() {
+function updateContent() {
+  $('.sankey-flow').html('');
+
   margin = {top: 10, right: 10, bottom: 10, left: 10},
   width = $('#mainContent').width() - margin.left - margin.right,
   height = $('body').height() - margin.top - margin.bottom;
 
-var formatNumber = d3.format(",.0f"),    // zero decimal places
+  if (height > 1000) {
+    height = 1000;
+  }
+
+  var formatNumber = d3.format(",.0f"),    // zero decimal places
     format = function(d) { return formatNumber(d) + " " + units; },
-    color = d3.scale.category20();
+     color = d3.scale.category20();
 
 // append the svg canvas to the page
 var svg = d3.select(".sankey-flow").append("svg")
@@ -32,9 +38,11 @@ var path = sankey.link();
 // load the data (using the timelyportfolio csv method)
 d3.csv("data/sankey.csv", function(error, data) {
 
+// console.log(loadSankeyData());
+  data = loadSankeyData();
   //set up graph in same style as original example but empty
   graph = {"nodes" : [], "links" : []};
-
+//console.log(data);
     data.forEach(function (d) {
       graph.nodes.push({ "name": d.source });
       graph.nodes.push({ "name": d.target });
@@ -129,10 +137,79 @@ d3.csv("data/sankey.csv", function(error, data) {
 });
 }
 
-drawSankey();
+var sankeyData = [];
+updateContent();
 
 $(window).resize(function() {
   $('.sankey-flow').html('');
-  drawSankey();
+//  filterData();
+  updateContent();
 });
+
+function loadSankeyData() {
+  filterData();
+  var fundList = [];
+  var deptList = [];
+  var acctList = [];
+
+  for (i = 0; i < filteredData.length; i++) {
+    if ($.inArray(filteredData[i].acct, acctList) < 0) {
+      acctList.push(filteredData[i].acct);
+    }
+    if ($.inArray(filteredData[i].dept, deptList) < 0) {
+      deptList.push(filteredData[i].dept);
+    }
+    if ($.inArray(filteredData[i].fund, fundList) < 0) {
+      fundList.push(filteredData[i].fund);
+    }
+  }
+
+  for (i = 0; i < fundList.length; i++) {
+    for (j = 0; j < deptList.length; j++) {
+      var subTotal = 0;
+
+      for (k = 0; k < filteredData.length; k++) {
+        if (filteredData[k].fund == fundList[i]
+            && filteredData[k].dept == deptList[j]) {
+          subTotal += parseFloat(filteredData[k].amount);
+        }
+      }
+
+      if (subTotal > 0) {
+        var objHolder = {
+          'source': fundList[i],
+          'target': deptList[j],
+          'value': String(subTotal)
+        };
+
+        sankeyData.push(objHolder);
+      }
+    }
+  }
+
+  for (i = 0; i < acctList.length; i++) {
+    for (j = 0; j < deptList.length; j++) {
+      var subTotal = 0;
+
+      for (k = 0; k < filteredData.length; k++) {
+        if (filteredData[k].acct == acctList[i]
+            && filteredData[k].dept == deptList[j]) {
+          subTotal += parseFloat(filteredData[k].amount);
+        }
+      }
+
+      if (subTotal > 0) {
+        var objHolder = {
+          'source': deptList[j],
+          'target': acctList[i],
+          'value': String(subTotal)
+        };
+
+        sankeyData.push(objHolder);
+      }
+    }
+  }
+
+  return sankeyData;
+}
 
