@@ -241,6 +241,8 @@ function bulletWidth(x) {
 })();
 
 function updateContent() {
+  filterData();
+  console.log(filteredData);
   $('.bullet-group').html('');
 
   var margin = {top: 10, right: 15, bottom: 25, left: 150},
@@ -319,7 +321,6 @@ var protoAccountTypes = [
 ];
 
 function buildBulletJSON() { //account types and transactions
-  filterData();
   accountTypes = protoAccountTypes;
 
   $.each(filteredData, function(key, val) {

@@ -4,6 +4,8 @@ var width = 0;
 var height = 0;
 
 function updateContent() {
+  filterData();
+  console.log(filteredData);
   $('.sankey-flow').html('');
 
   margin = {top: 10, right: 10, bottom: 10, left: 10},
@@ -142,12 +144,10 @@ updateContent();
 
 $(window).resize(function() {
   $('.sankey-flow').html('');
-//  filterData();
   updateContent();
 });
 
 function loadSankeyData() {
-  filterData();
   var fundList = [];
   var deptList = [];
   var acctList = [];

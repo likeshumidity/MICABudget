@@ -349,6 +349,7 @@ var autocompletes2 = {
 };
 
 $('.userchange').click( function() {
+  $('.mainContent section').html('');
   toggleOnChange('.filter-attributes', 'off');
 
   thisUser = $(this)
@@ -358,7 +359,6 @@ $('.userchange').click( function() {
 
   loadAutocompletes();
   bookmarksUpdate();
-  filterData();
   updateContent();
 
   $('.selected-user').toggleClass('selected-user');
@@ -370,10 +370,8 @@ $('.userchange').click( function() {
 $(document).ready(function() {
   loadAutocompletes();
   bookmarksUpdate();
-  filterData();
 
   $('.filter-attributes').change(function() {
-    filterData();
     updateContent();
     $('.hide-this').removeClass('hide-this');
   });
@@ -513,6 +511,7 @@ $('.clear-all').click(function() {
 
 // Load data available to user
 function filterData() {
+  filteredData = [];
   filteredData = $.grep(rawData, isSelectedData);
 //  console.log(filteredData.length);
 }
@@ -533,13 +532,13 @@ function isSelectedData(val, key) {
 var rawData = [];
 
 $.getJSON('data/fakeDataTrans.json', function(data) {
+  rawData = [];
   rawData = data;
 });
 
 function toggleOnChange(selector, changeTo) {
   if (changeTo == 'on') {
     $(selector).change(function() {
-      filterData();
       updateContent();
       $('.hide-this').removeClass('hide-this');
     });

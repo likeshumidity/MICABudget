@@ -1,10 +1,10 @@
 $(document).ready(function () {
-  filterData();
-  console.log(filteredData);
   updateContent();
 });
 
 function updateContent() {
+  filterData();
+  console.log(filteredData);
   $('.linechart-yeartoyear').html('');
   data = convertForLine(filteredData);
 
