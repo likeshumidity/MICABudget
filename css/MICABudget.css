@@ -43,6 +43,7 @@ ul.select2-results__options,
 #select2-choose-bookmarks-container,
 form.filter-form .form-group li,
 form.filter-form .form-group input,
+.bullet-tip,
 form.filter-form .form-group a {
   font-size: 7pt;
 }
@@ -98,6 +99,9 @@ form.filter-form .form-group a {
   position: absolute;
   z-index: 15;
   visibility: hidden;
+  background-color: #fff;
+  border: 2px solid #37b;
+  padding: 5px;
 }
 
 
