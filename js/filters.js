@@ -467,7 +467,7 @@ function bookmarksUpdate(bm) {
     if (key == bm) {
       $.each(val, function(key2, val2) {
         eval('$' + key2 + '.val(null).trigger("change");');
-
+        
         if (val2.length == 1 && val2[0] === "*") {
           eval('valueList = available' + toCapitalized(key2) + ';');
         } else {
@@ -513,7 +513,6 @@ $('.clear-all').click(function() {
 function filterData() {
   filteredData = [];
   filteredData = $.grep(rawData, isSelectedData);
-//  console.log(filteredData.length);
 }
 
 function isSelectedData(val, key) {

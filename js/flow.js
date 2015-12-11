@@ -17,7 +17,7 @@ function updateContent() {
 
   var formatNumber = d3.format(",.0f"),    // zero decimal places
     format = function(d) { return formatNumber(d) + " " + units; },
-     color = d3.scale.category20();
+     color = d3.scale.category20b();
 
 // append the svg canvas to the page
 var svg = d3.select(".sankey-flow").append("svg")
