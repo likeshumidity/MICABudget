@@ -2,9 +2,12 @@
 
 ## required - functionality:
 * map table to data
+* colors & graphics (mica dots)
+* static image for line charts (just example)
+* presentation
+* acknowledgment update
 
 ## preferred - functionality:
-* bullet - mouseover
 * year to year - mouseover
 * flow - select chartfields
 * table levels
