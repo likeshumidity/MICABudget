@@ -5,7 +5,6 @@ var height = 0;
 
 function updateContent() {
   filterData();
-  console.log(filteredData);
   $('.sankey-flow').html('');
 
   margin = {top: 10, right: 10, bottom: 10, left: 10},
@@ -40,11 +39,10 @@ var path = sankey.link();
 // load the data (using the timelyportfolio csv method)
 d3.csv("data/sankey.csv", function(error, data) {
 
-// console.log(loadSankeyData());
+  data = [];
   data = loadSankeyData();
   //set up graph in same style as original example but empty
   graph = {"nodes" : [], "links" : []};
-//console.log(data);
     data.forEach(function (d) {
       graph.nodes.push({ "name": d.source });
       graph.nodes.push({ "name": d.target });
@@ -151,6 +149,8 @@ function loadSankeyData() {
   var fundList = [];
   var deptList = [];
   var acctList = [];
+
+  sankeyData = [];
 
   for (i = 0; i < filteredData.length; i++) {
     if ($.inArray(filteredData[i].acct, acctList) < 0) {

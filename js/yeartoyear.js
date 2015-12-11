@@ -3,10 +3,13 @@ $(document).ready(function () {
 });
 
 function updateContent() {
+  console.log(filteredData);
   filterData();
   console.log(filteredData);
   $('.linechart-yeartoyear').html('');
   data = convertForLine(filteredData);
+  console.log(filteredData);
+  console.log(filteredData.length);
 
   var margin = {top: 20, right: 80, bottom: 30, left: 50},
     width = $('#mainContent').width() - margin.left - margin.right,
