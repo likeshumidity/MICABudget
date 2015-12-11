@@ -94,4 +94,10 @@ form.filter-form .form-group a {
   color: #aae;
 }
 
+.bullet-tip {
+  position: absolute;
+  z-index: 15;
+  visibility: hidden;
+}
+
 

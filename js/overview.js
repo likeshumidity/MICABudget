@@ -258,6 +258,12 @@ function updateContent() {
 
     buildBulletJSON();
     data = newAccountTypes;
+
+    var tooltip = d3.select('body')
+      .append('div')
+      .attr('class', 'bullet-tip')
+      .text('a simple tooltip');
+
     var svg = d3.select(".bullet-group").selectAll("svg").data(data)
       .enter().append("svg")
         .attr("class", "bullet")
@@ -265,7 +271,19 @@ function updateContent() {
         .attr("height", height + margin.top + margin.bottom)
       .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-        .call(chart);
+        .call(chart)
+        .on('mouseover', function(d) {
+          tooltip.html(d.title + '<br>Actual:&nbsp;' + d.measures[0]
+              + '<br>YEP:&nbsp;' + d.markers[0]);
+          return tooltip.style('visibility', 'visible');
+        })
+        .on('mousemove', function() {
+          return tooltip.style('top', (d3.event.pageY)-10 + 'px')
+            .style('left', (d3.event.pageX)+10 + 'px');
+        })
+        .on('mouseout', function() {
+          return tooltip.style('visibility', 'hidden');
+        });
 
     var title = svg.append("g")
       .style("text-anchor", "end")
